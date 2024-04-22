@@ -95,5 +95,5 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # 許可するホスト名を環境変数から取得
-  config.hosts << ENV['HEROKU_APP_HOST']
+  config.hosts.clear
 end
