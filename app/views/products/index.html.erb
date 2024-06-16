@@ -21,7 +21,7 @@
           <% @products.each do |product| %>
             <div class="col mb-5">
               <div class="card h-100">
-                  <!-- Product image-->
+                <!-- Product image-->
                 <%= link_to product_path(product) do %>
                   <%= image_tag product.image, :size => '450x300', class: 'card-img-top', alt: product.name if product.image.attached? %>
                 <% end %>
