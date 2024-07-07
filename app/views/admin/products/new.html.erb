@@ -1,0 +1,27 @@
+<div class="container mt-5 mb-5">
+  <h1 class="mb-4">新規商品登録</h1>
+
+  <%= form_with(model: [:admin, @product], local: true) do |form| %>
+    <div class="mb-3">
+      <%= form.label :name, '商品名', class: "form-label" %>
+      <%= form.text_field :name, class: "form-control", required: true %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :image, '商品画像', class: "form-label" %>
+      <%= form.file_field :image, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :price, '金額', class: "form-label" %>
+      <%= form.number_field :price, class: "form-control", required: true, step: "1", value: nil %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :description, '商品説明', class: "form-label" %>
+      <%= form.text_area :description, class: "form-control", rows: 3 %>
+    </div>
+
+    <%= form.submit '登録', class: "btn btn-primary" %>
+  <% end %>
+</div>
