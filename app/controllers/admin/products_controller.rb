@@ -16,10 +16,24 @@ class Admin::ProductsController < ApplicationController
       redirect_to admin_products_path
     else
       flash[:error] = "商品の登録に失敗しました"
-      redirect_to new_admin_product_path
+      render :new
     end
   end
 
+  def edit
+    @product = Product.find(params[:id])
+  end
+
+  def update
+    @product = Product.find(params[:id])
+    if @product.update(product_params)
+      flash[:success] = "#{@product.name}が更新されました"
+      redirect_to admin_products_path
+    else
+      flash[:error] = "#{@product.name}の更新に失敗しました。入力内容を確認してください。"
+      render :edit
+    end
+  end
 
 
   def destroy
@@ -30,17 +44,6 @@ class Admin::ProductsController < ApplicationController
     else
       flash[:error] = "#{@product.name}の削除に失敗しました"
       redirect_to admin_products_path
-    end
-  end
-
-
-  def updata
-    @product = Product.find(params[:id])
-    if @product.updata(product_params)
-      flash[:success] = "#{@product.name}が更新されました"
-      redirect_to edit_admin_product_path
-    else
-      flash[:error] = "#{@product.name}の更新に失敗しました。入力内容を確認してください。"
     end
   end
 

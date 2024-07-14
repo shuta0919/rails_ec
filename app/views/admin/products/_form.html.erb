@@ -1,0 +1,25 @@
+
+  <%= form_with(model: [:admin, @product]) do |form| %>
+    <div class="mb-3">
+      <%= form.label :name, '商品名', class: "form-label" %>
+      <%= form.text_field :name, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :image, '商品画像', class: "form-label" %>
+      <%= form.file_field :image, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :price, '金額', class: "form-label" %>
+      <%= form.number_field :price, class: "form-control", value: @product.price.to_i %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :description, '商品説明', class: "form-label" %>
+      <%= form.text_area :description, class: "form-control", rows: 3 %>
+    </div>
+
+    <%= form.submit @product.new_record? ? '登録' : '更新', class: "btn btn-primary" %>
+  <% end %>
+</div>
