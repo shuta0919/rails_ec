@@ -1,5 +1,6 @@
 class Admin::ProductsController < ApplicationController
   before_action :authenticate
+  before_action :set_product, only: [:edit, :update, :destroy]
 
   def index
     @products = Product.with_attached_image.order(created_at: :desc).page(params[:page]).per(12)
@@ -15,29 +16,24 @@ class Admin::ProductsController < ApplicationController
       flash[:success] = "#{@product.name}が登録されました"
       redirect_to admin_products_path
     else
-      flash[:error] = "商品の登録に失敗しました"
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
   def edit
-    @product = Product.find(params[:id])
   end
 
   def update
-    @product = Product.find(params[:id])
     if @product.update(product_params)
       flash[:success] = "#{@product.name}が更新されました"
       redirect_to admin_products_path
     else
-      flash[:error] = "#{@product.name}の更新に失敗しました。入力内容を確認してください。"
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
 
   def destroy
-    @product = Product.find(params[:id])
     if @product.destroy
       flash[:success] = "#{@product.name}が正常に削除されました"
       redirect_to admin_products_path
@@ -58,5 +54,9 @@ class Admin::ProductsController < ApplicationController
 
   def product_params
     params.require(:product).permit(:name, :description, :price, :image)
+  end
+
+  def set_product
+    @product = Product.find(params[:id])
   end
 end
