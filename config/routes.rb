@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   root 'products#index'
   resources :products
   resources :tasks
+  resources :carts, only: [:show, :destroy]
+  resources :cart_items, only: [:create, :update, :destroy]
 
   namespace :admin do
     resources :products
