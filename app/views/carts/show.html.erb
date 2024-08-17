@@ -31,6 +31,7 @@
       <% end %>
     </div>
             <span class="text-body-secondary"><%= number_to_currency(cart_item.product.price) %></span>
+            <%= button_to '削除', cart_item_path(cart_item), method: :delete, class: 'btn btn-sm btn-danger' %>
           </li>
           <% end %>
           <li class="list-group-item d-flex justify-content-between bg-body-tertiary">
