@@ -1,9 +1,16 @@
 class CartItemsController < ApplicationController
   def create
-    @cart = current_cart
-    product = Product.find_by(id: params[:product_id])
-    @cart_item = @cart.add_product(product)
-    redirect_to root_path
+    @product = Product.find(params[:product_id])
+    quantity = params[:quantity].to_i
+    @cart_item = current_cart.add_product(@product, quantity)
+
+    if @cart_item.persisted?
+      flash[:success] = "#{@product.name} をカートに追加しました"
+      redirect_to cart_path and return
+    else
+      flash[:error] = "カートに追加できませんでした"
+      redirect_to @product and return
+    end
   end
 
   def update
