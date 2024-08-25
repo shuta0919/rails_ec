@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Cart < ApplicationRecord
   has_many :cart_items, dependent: :destroy
   has_many :products, through: :cart_items
@@ -8,10 +10,10 @@ class Cart < ApplicationRecord
     if current_item
       current_item.quantity += quantity
     else
-      current_item = cart_items.build(product_id: product.id, quantity: quantity)
+      current_item = cart_items.build(product_id: product.id, quantity:)
     end
     current_item.save
-    return current_item
+    current_item
   end
 
   # カート内のアイテムの合計数
@@ -21,8 +23,6 @@ class Cart < ApplicationRecord
 
   # カート内のアイテムの合計金額
   def total_price
-    cart_items.includes(:product).sum{ |item| item.product.price * item.quantity }
+    cart_items.includes(:product).sum { |item| item.product.price * item.quantity }
   end
-
-
 end

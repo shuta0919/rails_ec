@@ -11,6 +11,6 @@ class ApplicationController < ActionController::Base
   def create_new_cart
     cart = Cart.create
     session[:cart_id] = cart.id
-    return cart
+    cart
   end
 end

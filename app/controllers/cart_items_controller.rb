@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CartItemsController < ApplicationController
   def create
     @product = Product.find(params[:product_id])
@@ -8,7 +10,7 @@ class CartItemsController < ApplicationController
       flash[:success] = "#{@product.name} をカートに追加しました"
       redirect_to cart_path and return
     else
-      flash[:danger] = "カートに追加できませんでした"
+      flash[:danger] = 'カートに追加できませんでした'
       redirect_to @product and return
     end
   end
@@ -16,12 +18,11 @@ class CartItemsController < ApplicationController
   def update
     @cart_item = CartItem.find(params[:id])
     if @cart_item.update(cart_item_params)
-      flash[:success] = "商品数量を更新しました"
-      redirect_to cart_path
+      flash[:success] = '商品数量を更新しました'
     else
-      flash[:danger] = "商品数量の更新に失敗しました"
-      redirect_to cart_path
+      flash[:danger] = '商品数量の更新に失敗しました'
     end
+    redirect_to cart_path
   end
 
   def destroy
@@ -29,11 +30,10 @@ class CartItemsController < ApplicationController
 
     if @cart_item.destroy
       flash[:success] = "#{@cart_item.product.name}を削除しました"
-      redirect_to cart_path
     else
       flash[:error] = "#{@cart_item.product.name}を削除できませんでした"
-      redirect_to cart_path
     end
+    redirect_to cart_path
   end
 
   private
@@ -41,7 +41,4 @@ class CartItemsController < ApplicationController
   def cart_item_params
     params.require(:cart_item).permit(:quantity)
   end
-
-
-
 end
