@@ -13,11 +13,13 @@
           </div>
           <p class="lead"><%= @product.description %></p>
           <div class="d-flex">
-            <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-            <button class="btn btn-outline-dark flex-shrink-0" type="button">
-              <i class="bi-cart-fill me-1"></i>
-              Add to cart
-            </button>
+            <%= form_with(url: cart_items_path(product_id: @product.id), local: true, class: 'd-flex') do |form| %>
+              <%= form.number_field :quantity, value: 1, min: 1, class: "form-control text-center me-3", style: "width: 70px" %>
+              <%= form.button type: 'submit', class: 'btn btn-outline-dark flex-shrink-0' do %>
+                <i class="bi-cart-fill me-1"></i>
+                Add to cart
+              <% end %>
+            <% end %>
           </div>
         </div>
       </div>

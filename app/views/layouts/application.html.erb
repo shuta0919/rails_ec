@@ -30,11 +30,11 @@
             <li class="nav-item"><%= link_to '管理者', admin_products_path, class: 'nav-link', 'aria-current': 'page' %></li>
           </ul>
           <form class="d-flex">
-            <button class="btn btn-outline-dark" type="submit">
+            <%= link_to cart_path, class: "btn btn-outline-dark" do %>
               <i class="bi-cart-fill me-1"></i>
               Cart
-              <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-            </button>
+              <span class="badge bg-dark text-white ms-1 rounded-pill"><%= current_cart.total_items %></span>
+            <% end %>
           </form>
         </div>
       </div>
@@ -52,9 +52,11 @@
   <!-- Flash messages -->
   <div class="container mt-3">
     <% flash.each do |type, message| %>
-      <div class="alert alert-<%= type %> alert-dismissible fade show" role="alert">
-        <%= message %>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      <div class="alert alert-<%= type %> alert-dismissible fade show text-center" role="alert">
+        <div class="d-flex justify-content-center align-items-center">
+          <span><%= message %></span>
+          <button type="button" class="btn-close ms-2" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
       </div>
     <% end %>
   </div>
