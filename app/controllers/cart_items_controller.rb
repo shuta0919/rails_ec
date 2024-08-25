@@ -8,7 +8,7 @@ class CartItemsController < ApplicationController
       flash[:success] = "#{@product.name} をカートに追加しました"
       redirect_to cart_path and return
     else
-      flash[:error] = "カートに追加できませんでした"
+      flash[:danger] = "カートに追加できませんでした"
       redirect_to @product and return
     end
   end
@@ -19,7 +19,7 @@ class CartItemsController < ApplicationController
       flash[:success] = "商品数量を更新しました"
       redirect_to cart_path
     else
-      flash[:error] = "商品数量の更新に失敗しました"
+      flash[:danger] = "商品数量の更新に失敗しました"
       redirect_to cart_path
     end
   end

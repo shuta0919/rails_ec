@@ -38,7 +38,7 @@ module Admin
       if @product.destroy
         flash[:success] = "#{@product.name}が正常に削除されました"
       else
-        flash[:error] = "#{@product.name}の削除に失敗しました"
+        flash[:danger] = "#{@product.name}の削除に失敗しました"
       end
       redirect_to admin_products_path
     end
