@@ -50,16 +50,16 @@
     </header>
   </header>
   <!-- Flash messages -->
-<div class="container mt-3">
-  <% flash.each do |type, message| %>
-    <div class="alert alert-<%= type %> alert-dismissible fade show text-center" role="alert">
-      <div class="d-flex justify-content-center align-items-center">
-        <span><%= message %></span>
-        <button type="button" class="btn-close ms-2" data-bs-dismiss="alert" aria-label="Close"></button>
+  <div class="container mt-3">
+    <% flash.each do |type, message| %>
+      <div class="alert alert-<%= type %> alert-dismissible fade show text-center" role="alert">
+        <div class="d-flex justify-content-center align-items-center">
+          <span><%= message %></span>
+          <button type="button" class="btn-close ms-2" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
       </div>
-    </div>
-  <% end %>
-</div>
+    <% end %>
+  </div>
   <%= yield %>
   <footer class="py-5 bg-dark">
     <div class="container">
