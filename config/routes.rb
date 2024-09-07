@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :tasks
   resource :cart, only: %i[show destroy]
   resources :cart_items, only: %i[create update destroy]
+  resources :orders, only: %i[create index show]
 
   namespace :admin do
     resources :products
