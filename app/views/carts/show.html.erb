@@ -50,7 +50,16 @@
      
       <div class="col-md-7 col-lg-8">
         <h4 class="mb-3">請求先住所</h4>
-        <%= form_with(model: Order.new, url: orders_path, method: :post, local: true, class: 'needs-validation') do |form| %>
+        <%= form_with(model: @order, url: orders_path, method: :post, local: true, class: 'needs-validation') do |form| %>
+        <% if @order.errors.any? %>
+          <div class="alert alert-danger">
+            <ul>
+              <% @order.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
           <div class="row g-3">
             <div class="col-sm-6">
               <%= form.label :last_name, '姓', class: 'form-label' %>
@@ -112,13 +121,13 @@
           </div>
           <hr class="my-4">
           <div class="form-check">
-            <%= form.check_box :same_address, class: 'form-check-input' %>
-            <%= form.label :same_address, '配送先住所は請求先住所と同じ', class: 'form-check-label' %>
-          </div>
-          <div class="form-check">
-            <%= form.check_box :save_info, class: 'form-check-input' %>
-            <%= form.label :save_info, '次回のために、この情報を保存する', class: 'form-check-label' %>
-          </div>
+  <%= check_box_tag 'same_address', '1', false, class: 'form-check-input' %>
+  <%= label_tag 'same_address', '配送先住所は請求先住所と同じ', class: 'form-check-label' %>
+</div>
+<div class="form-check">
+  <%= check_box_tag 'save_info', '1', false, class: 'form-check-input' %>
+  <%= label_tag 'save_info', '次回のために、この情報を保存する', class: 'form-check-label' %>
+</div>
           <hr class="my-4">
           <h4 class="mb-3">クレジットカード情報</h4>
           <div class="row gy-3">

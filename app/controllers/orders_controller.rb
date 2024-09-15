@@ -8,12 +8,20 @@ class OrdersController < ApplicationController
       flash[:success] = '購入ありがとうございます'
       redirect_to root_path
     else
-      flash[:danger] = '購入失敗しました'
-      redirect_to cart_path
+      @cart = current_cart
+      @cart_items = @cart.cart_items
+      flash.now[:danger] = '購入に失敗しました。エラーを確認してください。'
+      render 'carts/show', status: :unprocessable_entity
     end
   end
 
-  
+  def index
+    @orders = Order.all
+  end
+
+
+
+
 
   private
 
