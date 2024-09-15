@@ -57,6 +57,7 @@ gem 'aws-sdk-s3', require: false
 
 gem 'bootstrap5-kaminari-views'
 gem 'kaminari'
+gem 'pry-rails'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
