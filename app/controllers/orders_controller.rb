@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :authenticate
-  
+
   def create
     @order = Order.new(order_params)
     if @order.save
@@ -17,9 +17,12 @@ class OrdersController < ApplicationController
   end
 
   def index
-    @orders = Order.all
+    @orders = Order.page(params[:page]).per(10)
   end
 
+  def show
+    @order = Order.find(params[:id])
+  end
 
 
 
@@ -45,4 +48,5 @@ class OrdersController < ApplicationController
     current_cart.destroy
     session[:cart_id] = nil
   end
+  
 end

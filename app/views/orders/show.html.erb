@@ -1,0 +1,82 @@
+<div class="container my-5">
+  <h1 class="mb-4">注文詳細 <%= @order.id %></h1>
+
+  <div class="row">
+    <div class="col-md-6 mb-4">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h5 class="card-title mb-0">注文情報</h5>
+        </div>
+        <div class="card-body">
+          <p><strong>注文日時:</strong> <%= @order.created_at.strftime('%Y年%m月%d日 %H:%M') %></p>
+          <p><strong>合計金額:</strong> <%= number_to_currency(@order.order_items.sum(:total_price)) %></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+      <div class="card">
+        <div class="card-header bg-info text-white">
+          <h5 class="card-title mb-0">請求先情報</h5>
+        </div>
+        <div class="card-body">
+          <p><strong>氏名:</strong> <%= @order.full_name %></p>
+          <p><strong>メール:</strong> <%= @order.email %></p> 
+          <p><strong>郵便番号:</strong><%= "#{@order.zip}" %></p>
+          <p><%= @order.address_line_2 if @order.address_line_2.present? %></p>
+          <p><strong>住所:</strong> <%= @order.address_line_1 %></p> 
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-header bg-secondary text-white">
+      <h5 class="card-title mb-0">注文商品</h5>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>商品名</th>
+              <th>数量</th>
+              <th class="text-right">価格</th>
+              <th class="text-right">小計</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @order.order_items.each do |item| %>
+              <tr>
+                <td><%= item.product.name %></td>
+                <td><%= item.quantity %></td>
+                <td class="text-right"><%= number_to_currency(item.price) %></td>
+                <td class="text-right"><%= number_to_currency(item.total_price) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="3" class="text-right"><strong>合計:</strong></td>
+              <td class="text-right"><strong><%= number_to_currency(@order.order_items.sum(:total_price)) %></strong></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-header bg-warning">
+      <h5 class="card-title mb-0">支払い情報</h5>
+    </div>
+    <div class="card-body">
+      <p><strong>支払い方法:</strong> クレジットカード</p>
+      <p><strong>カード番号:</strong> **** **** **** <%= @order.cc_number.last(4) %></p>
+    </div>
+  </div>
+
+  <div class="text-center mt-4">
+    <%= link_to '注文一覧に戻る', orders_path, class: 'btn btn-secondary' %>
+  </div>
+</div>

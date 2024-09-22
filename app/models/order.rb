@@ -13,4 +13,8 @@ class Order < ApplicationRecord
   validates :cc_number, presence: true, format: {with: /\A\d{14,16}\z/}
   validates :cc_exp, presence: true, format: {with: /\A(0[1-9]|1[0-2])\/\d{2}\z/}
   validates :cc_cvv, presence: true, format: {with: /\A\d{3,4}\z/}
+
+  def full_name
+    "#{last_name} #{first_name}"
+  end
 end

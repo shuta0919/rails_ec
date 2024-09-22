@@ -1,0 +1,40 @@
+<!-- app/views/orders/index.html.erb -->
+
+<div class="container my-5">
+  <h1 class="mb-4 text-center">注文履歴</h1>
+
+  <% if @orders.any? %>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th class="text-center">注文番号</th>
+          <th class="text-center">注文日</th>
+          <th class="text-center">合計金額</th>
+          <th class="text-center">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @orders.each do |order| %>
+          <tr>
+            <td class="text-center"><%= order.id %></td>
+            <td class="text-center"> <%= order.created_at.strftime('%Y年%m月%d日 %H:%M') %></td>
+            <td class="text-center"><%= number_to_currency(order.order_items.sum(&:total_price)) %></td>
+            <td class="text-center">
+              <%= link_to '詳細', order_path(order), class: 'btn btn-sm btn-info' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%= paginate @orders, theme: 'bootstrap-5',
+                        pagination_class: "pagination-sm flex-wrap justify-content-center",
+                        nav_class: "d-inline-block", 
+                        nav_class: "d-flex justify-content-center" %>
+
+  <% else %>
+    <p class="alert alert-info">注文履歴がありません。</p>
+  <% end %>
+
+  <%= link_to '商品一覧に戻る', products_path, class: 'btn btn-secondary' %>
+</div>
