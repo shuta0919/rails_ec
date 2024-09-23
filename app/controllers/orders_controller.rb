@@ -6,6 +6,7 @@ class OrdersController < ApplicationController
     if @order.save
       create_order_items
       delete_cart
+      OrderMailer.order_confirmation(@order).deliver_later
       flash[:success] = '購入ありがとうございます'
       redirect_to root_path
     else
@@ -48,5 +49,5 @@ class OrdersController < ApplicationController
     current_cart.destroy
     session[:cart_id] = nil
   end
-  
+
 end
