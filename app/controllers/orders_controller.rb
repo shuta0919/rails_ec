@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class OrdersController < ApplicationController
   before_action :authenticate
 
@@ -25,13 +27,11 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
   end
 
-
-
-
   private
 
   def order_params
-    params.require(:order).permit(:first_name, :last_name, :email, :address_line_1, :address_line_2, :country, :state, :zip, :cc_name, :cc_number, :cc_exp, :cc_cvv)
+    params.require(:order).permit(:first_name, :last_name, :email, :address_line_1, :address_line_2, :country, :state,
+                                  :zip, :cc_name, :cc_number, :cc_exp, :cc_cvv)
   end
 
   def create_order_items
@@ -49,5 +49,4 @@ class OrdersController < ApplicationController
     current_cart.destroy
     session[:cart_id] = nil
   end
-
 end

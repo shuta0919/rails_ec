@@ -6,9 +6,7 @@ class CartItem < ApplicationRecord
 
   validates :quantity, presence: true, numericality: { only_integer: true, greater_than: 0 }
 
-  def price
-    product.price
-  end
+  delegate :price, to: :product
 
   def total_price
     price * quantity
