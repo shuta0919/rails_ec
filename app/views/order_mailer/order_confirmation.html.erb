@@ -1,8 +1,6 @@
 <h1>ご注文ありがとうございます</h1>
-
 <p>注文番号: <%= @order.id %></p>
 <p>注文日: <%= @order.created_at.strftime('%Y年%m月%d日') %></p>
-
 <h2>注文詳細</h2>
 <table>
   <thead>
@@ -28,5 +26,4 @@
     </tr>
   </tfoot>
 </table>
-
 <p>またのご利用をお待ちしております。</p>

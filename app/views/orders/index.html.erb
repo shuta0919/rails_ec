@@ -1,8 +1,6 @@
 <!-- app/views/orders/index.html.erb -->
-
 <div class="container my-5">
   <h1 class="mb-4 text-center">注文履歴</h1>
-
   <% if @orders.any? %>
     <table class="table table-striped">
       <thead>
@@ -26,15 +24,12 @@
         <% end %>
       </tbody>
     </table>
-
     <%= paginate @orders, theme: 'bootstrap-5',
                         pagination_class: "pagination-sm flex-wrap justify-content-center",
                         nav_class: "d-inline-block", 
                         nav_class: "d-flex justify-content-center" %>
-
   <% else %>
     <p class="alert alert-info">注文履歴がありません。</p>
   <% end %>
-
   <%= link_to '商品一覧に戻る', products_path, class: 'btn btn-secondary' %>
 </div>
