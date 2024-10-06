@@ -97,12 +97,18 @@ Rails.application.configure do
   # Mailgun設定
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :port           => ENV['MAILGUN_SMTP_PORT'],
-    :address        => ENV['MAILGUN_SMTP_SERVER'],
-    :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
-    :password       => ENV['MAILGUN_SMTP_PASSWORD'],
-    :domain         => ENV['MAILGUN_DOMAIN'],
-    :authentication => :plain,
+    address:              ENV['MAILGUN_SMTP_SERVER'],
+    port:                 ENV['MAILGUN_SMTP_PORT'].to_i,
+    domain:               ENV['MAILGUN_DOMAIN'],
+    user_name:            ENV['MAILGUN_SMTP_LOGIN'],
+    password:             ENV['MAILGUN_SMTP_PASSWORD'],
+    authentication:       'plain',
+    enable_starttls_auto: true
   }
-  config.action_mailer.default_url_options = { host: ENV['MAILGUN_DOMAIN'] }
+
+  # アプリケーションのホスト名を設定
+  config.action_mailer.default_url_options = { host: 'shuta-app-c24c61e3cc57.herokuapp.com' }
+
+  # 送信元メールアドレスのデフォルト設定
+  config.action_mailer.default_options = { from: "noreply@#{ENV['MAILGUN_DOMAIN']}" }
 end
