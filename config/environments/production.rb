@@ -94,21 +94,16 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  # Mailgun設定
+  # sendgridの設定
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    address: ENV['MAILGUN_SMTP_SERVER'],
-    port: ENV['MAILGUN_SMTP_PORT'].to_i,
-    domain: ENV['MAILGUN_DOMAIN'],
-    user_name: ENV['MAILGUN_SMTP_LOGIN'],
-    password: ENV['MAILGUN_SMTP_PASSWORD'],
-    authentication: 'plain',
-    enable_starttls_auto: true
-  }
+config.action_mailer.smtp_settings = {
+  address:              'smtp.sendgrid.net',
+  port:                 587,
+  domain:               'herokuapp.com',
+  user_name:            'apikey',
+  password:             ENV['SENDGRID_API_KEY'],
+  authentication:       'plain',
+  enable_starttls_auto: true
+}
 
-  # アプリケーションのホスト名を設定
-  config.action_mailer.default_url_options = { host: 'shuta-app-c24c61e3cc57.herokuapp.com' }
-
-  # 送信元メールアドレスのデフォルト設定
-  config.action_mailer.default_options = { from: "noreply@#{ENV['MAILGUN_DOMAIN']}" }
 end
