@@ -72,12 +72,12 @@ group :development do
   gem 'htmlbeautifier'
   gem 'letter_opener_web'
   gem 'mailgun-ruby', '~> 1.2.0'
-  gem 'sendgrid-ruby'
   gem 'rails_best_practices'
   gem 'rubocop', require: false
   gem 'rubocop-hc', require: false, github: 'ihatov08/rubocop-hc'
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
+  gem 'sendgrid-ruby'
   gem 'web-console'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
