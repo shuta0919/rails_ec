@@ -5,9 +5,16 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
-    if @order.save
+
+    ActiveRecord::Base.transaction do
+      raise ActiveRecord::Rollback unless @order.save
+
       create_order_items
       delete_cart
+      true
+    end
+
+    if @order.persisted?
       OrderMailer.order_confirmation(@order).deliver_later
       flash[:success] = '購入ありがとうございます'
       redirect_to root_path
@@ -36,7 +43,7 @@ class OrdersController < ApplicationController
 
   def create_order_items
     current_cart.cart_items.each do |cart_item|
-      @order.order_items.create(
+      @order.order_items.create!(
         product: cart_item.product,
         quantity: cart_item.quantity,
         price: cart_item.product.price,
