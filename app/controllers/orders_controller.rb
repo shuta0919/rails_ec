@@ -11,7 +11,6 @@ class OrdersController < ApplicationController
 
       create_order_items
       delete_cart
-      true
     end
 
     if @order.persisted?
