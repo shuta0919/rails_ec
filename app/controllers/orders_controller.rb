@@ -7,17 +7,17 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
 
     ActiveRecord::Base.transaction do
-      raise ActiveRecord::Rollback unless @order.save
-
+      @order.save!
       create_order_items
       delete_cart
     end
 
-    if @order.persisted?
+
       OrderMailer.order_confirmation(@order).deliver_later
       flash[:success] = '購入ありがとうございます'
       redirect_to root_path
-    else
+
+    resuce => e
       @cart = current_cart
       @cart_items = @cart.cart_items
       flash.now[:danger] = '購入に失敗しました。エラーを確認してください。'
