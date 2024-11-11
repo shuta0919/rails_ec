@@ -6,18 +6,17 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
 
-    ActiveRecord::Base.transaction do
-      @order.save!
-      create_order_items
-      delete_cart
-    end
-
+      ActiveRecord::Base.transaction do
+        @order.save!
+        create_order_items
+        delete_cart
+      end
 
       OrderMailer.order_confirmation(@order).deliver_later
       flash[:success] = '購入ありがとうございます'
       redirect_to root_path
 
-    resuce => e
+    rescue => e
       @cart = current_cart
       @cart_items = @cart.cart_items
       flash.now[:danger] = '購入に失敗しました。エラーを確認してください。'
