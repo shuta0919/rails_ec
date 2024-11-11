@@ -8,7 +8,7 @@ class CartItemsController < ApplicationController
 
     if @cart_item.persisted?
       flash[:success] = "#{@product.name} をカートに追加しました"
-      redirect_to cart_path and return
+      redirect_to root_path and return
     else
       flash[:danger] = 'カートに追加できませんでした'
       redirect_to @product and return

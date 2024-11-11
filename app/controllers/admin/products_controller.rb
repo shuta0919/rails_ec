@@ -45,13 +45,6 @@ module Admin
 
     private
 
-    def authenticate
-      authenticate_or_request_with_http_basic do |username, password|
-        username == Rails.application.credentials.admin[:username] &&
-          password == Rails.application.credentials.admin[:password]
-      end
-    end
-
     def product_params
       params.require(:product).permit(:name, :description, :price, :image)
     end

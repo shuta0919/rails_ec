@@ -27,7 +27,8 @@
                 <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
               </ul>
             </li>
-            <li class="nav-item"><%= link_to '管理者', admin_products_path, class: 'nav-link', 'aria-current': 'page' %></li>
+            <li class="nav-item"><%= link_to '商品管理', admin_products_path, class: 'nav-link', 'aria-current': 'page' %></li>
+            <li class="nav-item"><%= link_to '注文履歴', orders_path, class: 'nav-link', 'aria-current': 'page' %></li>
           </ul>
           <form class="d-flex">
             <%= link_to cart_path, class: "btn btn-outline-dark" do %>
