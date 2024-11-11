@@ -21,7 +21,6 @@ class OrdersController < ApplicationController
       @cart_items = @cart.cart_items
       flash.now[:danger] = '購入に失敗しました。エラーを確認してください。'
       render 'carts/show', status: :unprocessable_entity
-    end
   end
 
   def index
