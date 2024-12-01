@@ -10,4 +10,11 @@ class PromotionCode < ApplicationRecord
                                               less_than_or_equal_to: 1000 }
 
   def self.generate_code
+    secureRandom,alphanumeric(7).upcase
+  end
+
+  def generate_discount_amount
+    rand(100..1000)
+  end
+
 end
