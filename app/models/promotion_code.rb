@@ -13,7 +13,7 @@ class PromotionCode < ApplicationRecord
     secureRandom,alphanumeric(7).upcase
   end
 
-  def generate_discount_amount
+  def self.generate_discount_amount
     rand(100..1000)
   end
 
