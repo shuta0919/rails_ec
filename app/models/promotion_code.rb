@@ -1,4 +1,6 @@
 class PromotionCode < ApplicationRecord
+  has_many :orders, foreign_key: 'used_promotion_code_id'
+  
   validates :code, presence: true,
                    uniqueness: true,
                    length: { is: 7 },

@@ -3,6 +3,7 @@
 class Order < ApplicationRecord
   has_many :order_items, dependent: :destroy
   has_many :products, through: :order_items
+  belongs_to :used_promotion_code, class_name: 'PromotionCode', optional: true
 
   validates :first_name, presence: true, length: { maximum: 50 }
   validates :last_name, presence: true, length: { maximum: 50 }

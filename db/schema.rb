@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_11_30_092928) do
+ActiveRecord::Schema[7.0].define(version: 2024_12_06_024610) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -84,6 +84,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_30_092928) do
     t.string "cc_cvv", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "used_promotion_code_id"
+    t.index ["used_promotion_code_id"], name: "index_orders_on_used_promotion_code_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -117,4 +119,5 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_30_092928) do
   add_foreign_key "cart_items", "products"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
+  add_foreign_key "orders", "promotion_codes", column: "used_promotion_code_id"
 end
