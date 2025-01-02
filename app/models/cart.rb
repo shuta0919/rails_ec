@@ -3,6 +3,9 @@
 class Cart < ApplicationRecord
   has_many :cart_items, dependent: :destroy
   has_many :products, through: :cart_items
+  belongs_to :promotion_code, optional: true
+
+
 
   # 商品をカートに追加
   def add_product(product, quantity = 1)
@@ -25,4 +28,16 @@ class Cart < ApplicationRecord
   def total_price
     cart_items.includes(:product).sum { |item| item.product.price * item.quantity }
   end
+
+  # プロモーションコードの割引額
+  def discount_amount
+    promotion_code&.discount_amount || 0
+  end
+
+  # プロモーションコードの割引後の合計金額
+  def total_price_with_discount
+    total_price - discount_amount
+  end
+
+
 end
