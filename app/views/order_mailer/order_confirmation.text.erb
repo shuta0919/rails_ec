@@ -8,9 +8,12 @@
 商品名: <%= item.product.name %>
 数量: <%= item.quantity %>
 価格: <%= number_to_currency(item.total_price) %>
-
+<% if @order.used_promotion_code %>
+割引: <%= number_to_currency(@order.used_promotion_code.discount_amount) %>
+合計: <%= number_to_currency(@order.total_price_with_discount) %>
+<% else %>
+合計: <%= number_to_currency(@order.total_price) %>
 <% end %>
-
-合計: <%= number_to_currency(@order.order_items.sum(:total_price)) %>
+<% end %>
 
 またのご利用をお待ちしております。

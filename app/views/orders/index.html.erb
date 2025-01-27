@@ -15,8 +15,14 @@
         <% @orders.each do |order| %>
           <tr>
             <td class="text-center"><%= order.id %></td>
-            <td class="text-center"> <%= order.created_at.strftime('%Y年%m月%d日 %H:%M') %></td>
-            <td class="text-center"><%= number_to_currency(order.order_items.sum(&:total_price)) %></td>
+            <td class="text-center"><%= I18n.l order.created_at, format: :long %></td>
+            <td class="text-center">
+              <% if order.used_promotion_code %>
+                <%= number_to_currency(order.total_price_with_discount) %>
+              <% else %>
+                <%= number_to_currency(order.total_price) %>
+              <% end %>
+            </td>
             <td class="text-center">
               <%= link_to '詳細', order_path(order), class: 'btn btn-sm btn-info' %>
             </td>

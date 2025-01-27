@@ -1,16 +1,19 @@
 # frozen_string_literal: true
 
 class OrdersController < ApplicationController
-  before_action :authenticate
+  before_action :authenticate, only: %i[index, show]
 
   def create
     @order = Order.new(order_params)
 
+
       ActiveRecord::Base.transaction do
-        @order.save!
-        create_order_items
-        delete_cart
-      end
+      apply_promotion_code
+      @order.save!
+      create_order_items
+      mark_promotion_code_used
+      delete_cart
+    end
 
       OrderMailer.order_confirmation(@order).deliver_later
       flash[:success] = '購入ありがとうございます'
@@ -36,6 +39,14 @@ class OrdersController < ApplicationController
   def order_params
     params.require(:order).permit(:first_name, :last_name, :email, :address_line_1, :address_line_2, :country, :state,
                                   :zip, :cc_name, :cc_number, :cc_exp, :cc_cvv)
+  end
+
+  def apply_promotion_code
+    @order.used_promotion_code = current_cart.promotion_code if current_cart.promotion_code
+  end
+
+  def mark_promotion_code_used
+    @order.used_promotion_code.update!(used: true) if @order.used_promotion_code
   end
 
   def create_order_items

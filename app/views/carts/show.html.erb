@@ -28,24 +28,29 @@
               <%= button_to '削除', cart_item_path(cart_item), method: :delete, class: 'btn btn-sm btn-danger' %>
             </li>
           <% end %>
-          <li class="list-group-item d-flex justify-content-between bg-body-tertiary">
-            <div class="text-success">
-              <h6 class="my-0">プロモーションコード</h6>
-              <small>EXAMPLECODE</small>
-            </div>
-            <span class="text-success">−500円</span>
-          </li>
+          
+          <% if @applied_promotion.present? %>
+            <li class="list-group-item d-flex justify-content-between bg-body-tertiary">
+              <div class="text-success">
+                <h6 class="my-0">プロモーションコード</h6>
+                <small><%= @applied_promotion.code %></small>
+              </div>
+              <span class="text-success">−<%= number_to_currency(@cart.discount_amount) %></span>
+            </li>
+          <% end %>
           <li class="list-group-item d-flex justify-content-between">
             <span>合計</span>
-            <strong><%= number_to_currency(@cart.total_price) %></strong>
+            <strong><%= number_to_currency(@cart.total_price_with_discount) %></strong>
           </li>
         </ul>
-        <form class="card p-2">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="プロモーションコード">
-            <button type="submit" class="btn btn-secondary">適用</button>
-          </div>
-        </form>
+        <div class="card p-2">
+          <%= form_with(url: apply_promotion_cart_path, method: :post, local: true) do |f| %>
+            <div class="input-group">
+              <%= f.text_field :promotion_code, class: 'form-control', placeholder: 'プロモーションコード' %>
+              <%= f.submit 'クーポンを適用', class: 'btn btn-secondary' %>
+            </div>
+          <% end %>
+        </div>
       </div>
       <div class="col-md-7 col-lg-8">
         <h4 class="mb-3">請求先住所</h4>

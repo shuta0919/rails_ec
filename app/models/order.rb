@@ -20,4 +20,14 @@ class Order < ApplicationRecord
   def full_name
     "#{last_name} #{first_name}"
   end
+
+  def total_price
+    order_items.sum(&:total_price)
+  end
+
+  def total_price_with_discount
+    total_price - used_promotion_code.discount_amount
+  end
+
+
 end

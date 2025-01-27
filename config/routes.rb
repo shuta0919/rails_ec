@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   root 'products#index'
   resources :products
   resources :tasks
-  resource :cart, only: %i[show destroy]
+  resource :cart, only: %i[show destroy] do
+    post :apply_promotion
+  end
   resources :cart_items, only: %i[create update destroy]
   resources :orders, only: %i[create index show]
 

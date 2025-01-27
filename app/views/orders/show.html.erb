@@ -8,7 +8,11 @@
         </div>
         <div class="card-body">
           <p><strong>注文日時:</strong> <%= @order.created_at.strftime('%Y年%m月%d日 %H:%M') %></p>
-          <p><strong>合計金額:</strong> <%= number_to_currency(@order.order_items.sum(:total_price)) %></p>
+          <p><strong>合計金額:</strong> <%= number_to_currency(@order.total_price) %></p>
+          <% if @order.used_promotion_code %>
+            <p><strong>割引:</strong> -<%= number_to_currency(@order.used_promotion_code.discount_amount) %></p>
+            <p><strong>割引後の合計金額:</strong> <%= number_to_currency(@order.total_price_with_discount) %></p>
+          <% end %>
         </div>
       </div>
     </div>
@@ -55,8 +59,18 @@
           <tfoot>
             <tr>
               <td colspan="3" class="text-right"><strong>合計:</strong></td>
-              <td class="text-right"><strong><%= number_to_currency(@order.order_items.sum(:total_price)) %></strong></td>
+              <td class="text-right"><strong><%= number_to_currency(@order.total_price) %></strong></td>
             </tr>
+            <% if @order.used_promotion_code %>
+              <tr>
+                <td colspan="3" class="text-right"><strong>割引:</strong></td>
+                <td class="text-right"><strong>-<%= number_to_currency(@order.used_promotion_code.discount_amount) %></strong></td>
+              </tr>
+              <tr>
+                <td colspan="3" class="text-right"><strong>割引後の合計:</strong></td>
+                <td class="text-right"><strong><%= number_to_currency(@order.total_price_with_discount) %></strong></td>
+              </tr>
+            <% end %>
           </tfoot>
         </table>
       </div>
